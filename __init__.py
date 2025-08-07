@@ -77,10 +77,6 @@ class render_unity_skybox_6_sided(bpy.types.Operator):
         # Deselect All
         bpy.ops.object.select_all(action='DESELECT')
 
-        # Disable Bloom
-        self.pre_bloom_state = bpy.context.scene.eevee.use_bloom
-        bpy.context.scene.eevee.use_bloom = False
-
         # Create Camera
         self.cam_data = bpy.data.cameras.new('Unity Skybox 6 Sided Camera')
         self.cam = bpy.data.objects.new('Unity Skybox 6 Sided Camera', self.cam_data)
@@ -108,7 +104,6 @@ class render_unity_skybox_6_sided(bpy.types.Operator):
     
     def finalize(self):
         bpy.ops.object.delete(confirm=False)
-        bpy.context.scene.eevee.use_bloom = self.pre_bloom_state
 
     def render_ft(self):
         bpy.ops.transform.rotate(value=math.radians(-90), orient_axis='X', orient_type='GLOBAL')
